@@ -1,0 +1,26 @@
+<textarea class="form-control h-auto">
+    $('#{{dataTableInfo.idTable}}').DataTable({ 
+        responsive:true,      
+        "serveSide" : true,     
+        "ajax": "{{dataTableInfo.ajaxGetter}}",
+        "row": "{{dataTableInfo.ID}}",
+        "columns": 
+            {{generateColumns()}}
+    });
+
+    $('#{{dataTableInfo.idTable}} tbody').on('click', '#btnDelete', function () {
+        var row = $(this).closest('tr');
+        
+        var data = table.row( row ).data().{{dataTableInfo.ID}};
+        console.log(data);
+    });
+    
+    $('#{{dataTableInfo.idTable}} tbody').on('click', '#btnUpdate', function () {
+        var row = $(this).closest('tr');
+        
+        var data = table.row( row ).data().{{dataTableInfo.ID}};
+        console.log(data);
+    });
+
+
+</textarea>

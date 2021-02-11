@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-secondary" (click)="config.datos = !config.datos">Datos</div>
+    <div class="card-body" *ngIf="config.datos">
+      <h4>Ingrese el json devuelto por el endpoint</h4>
+      <textarea class="form-control" [(ngModel)]="itemString" (change)="proccessJson()"></textarea>      
+    </div>
+    <div class="card-footer">
+      <h5>Etiquetas de las propiedades:</h5>
+      <div *ngFor="let prop of properties" class="form-group form-inline">
+        <label>{{prop.name}}</label>
+        <input [(ngModel)]="prop.description" class="form-control">
+        <label>Dibujar en la tabla:</label>
+        <input type="checkbox" [(ngModel)]="prop.renderOnTable">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-secondary" (click)="config.dataTable = !config.dataTable">Datatable</div>
+    <div class="card-body" *ngIf="config.dataTable">
+      <div class="form-group">
+        <label>AJAX HTTP Request data getter:</label>
+        <input [(ngModel)]="urlGetterDT" class="w-100"> 
+      </div>
+      <div class="form-group">
+        <label>Identificador de la tabla:</label>
+        <input [(ngModel)]="IDTable" class="w-100"> 
+      </div>
+      <div class="form-group form-inline">
+        <label>Botón editar</label>
+        <input [(ngModel)]="optionsDataTable.botonEditar" type="checkbox">
+        <label>Botón eliminar</label>
+        <input [(ngModel)]="optionsDataTable.botonEliminar" type="checkbox">
+        <label>Tipo input</label>
+      </div>
+      <button class="btn btn-success" (click)="generarDT()">Generar datatable</button>
+    </div>
+    
+    <div class="card-footer">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="((dataTableResults) ? 'active' : '')" (click)="dataTableResults=true" aria-current="page" >HTML</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="((dataTableResults) ? '' : 'active')" (click)="dataTableResults=false" aria-current="page">JAVASCRIPT</a>
+        </li>
+      </ul>
+      <app-datatablehtml [dataTableInfo]="dataTableInfo" *ngIf="dataTableResults"></app-datatablehtml>
+      <app-datatablejs [dataTableInfo]="dataTableInfo" *ngIf="!dataTableResults"></app-datatablejs>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-secondary" (click)="config.modals = !config.modals">Modal de edición.</div>
+      <app-modaleditor *ngIf="config.modals" [properties]="properties"></app-modaleditor>
+
+  </div>
+</div>

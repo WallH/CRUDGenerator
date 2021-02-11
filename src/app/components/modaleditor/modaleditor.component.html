@@ -1,0 +1,54 @@
+<div class="card-body">
+    <h5>Etiquetas de las propiedades:</h5>
+    <div *ngFor="let prop of properties" class="">
+        <h5><b>{{prop.name}}</b></h5>
+        <div class="form-group form-inline">
+            <label>Tipo de input</label>
+            <select [(ngModel)]="prop.typeInput">
+                <option value="0">INPUT</option>
+                <option value="1">SELECT Estático</option>
+                <option value="2">SELECT Dinámico</option>
+                <option value="3">Checkbox</option>
+            </select>  
+        </div>
+        <div *ngIf="prop.typeInput == 1">
+            <div class="form-inline">
+                <h5>Opciones select estático:</h5> <button class="btn btn-success" (click)="addOptionValue(prop)" >+</button>
+            </div>
+            <div *ngFor="let iptVal of prop.inputValues" class="form-group form-inline">
+                <input [(ngModel)]="iptVal.label" placeholder="Label">
+                <input [(ngModel)]="iptVal.value" placeholder="Valor">
+                <button class="btn btn-warning" (click)="deleteOptionValue(prop, iptVal)">-</button>
+            </div>
+        </div>
+        <div *ngIf="prop.typeInput == 2">
+            <h5>Opciones select dinámico:</h5> 
+            <div class="form-inline">
+                <input [(ngModel)]="prop.optionsDynamic.urlOptions" placeholder="Endpoint opciones">
+                <input [(ngModel)]="prop.optionsDynamic.labelJson" placeholder="Label opción (propiedad)">
+                <input [(ngModel)]="prop.optionsDynamic.valueJson" placeholder="Valor (propiedad)">
+                <!-- PROX VERSIÓN<select [(ngModel)]="prop.optionsDynamic.labelJson">
+                    <option *ngFor="let x of optionsProps" [ngValue]="x">{{x}}</option>
+                </select>-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="card-footer">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" [ngClass]="((modalEditorResults) ? 'active' : '')" (click)="modalEditorResults=true"
+                aria-current="page">HTML</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [ngClass]="((modalEditorResults) ? '' : 'active')" (click)="modalEditorResults=false"
+                aria-current="page">JAVASCRIPT</a>
+        </li>
+    </ul>
+    <app-modaloutput [properties]="properties" *ngIf="modalEditorResults"></app-modaloutput>
+    <app-modaloutputjs [properties]="properties" *ngIf="!modalEditorResults"></app-modaloutputjs>
+</div>
+
+
+

@@ -17,10 +17,12 @@
     
     $('#{{dataTableInfo.idTable}} tbody').on('click', '#btnUpdate', function () {
         var row = $(this).closest('tr');
-        
-        var data = table.row( row ).data().{{dataTableInfo.ID}};
-        console.log(data);
+    
+        var data = table.row( row ).data();
+        let props = Object.getOwnPropertyNames(data);
+        for(let d of props)
+        {
+            $("#"+d).val(data[d]);
+        }
     });
-
-
 </textarea>

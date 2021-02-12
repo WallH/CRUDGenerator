@@ -13,6 +13,7 @@ export class ModaleditorComponent implements OnInit {
   
   optionsProps : Array<string>;
   modalEditorResults:boolean =true;
+  tiposInput:boolean = false;
   constructor() { 
     this.optionsProps = this.optionsProps;
   }
